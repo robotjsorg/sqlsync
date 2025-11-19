@@ -1,3 +1,5 @@
+#![allow(clippy::await_holding_refcell_ref)]
+
 use std::cell::RefCell;
 
 use coordinator::Coordinator;
@@ -70,6 +72,7 @@ impl DurableObject for DocumentCoordinator {
             spawn_local(task.into_task());
             *self.coordinator.borrow_mut() = Some(coordinator);
         }
+
         let mut borrow = self.coordinator.borrow_mut();
         let coordinator = borrow.as_mut().unwrap();
 

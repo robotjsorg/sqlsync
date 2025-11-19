@@ -21,6 +21,9 @@ test:
 build-wasm:
     just run-with-prefix 'wasm-'
 
+package:
+  just run-with-prefix 'package-'
+
 run-with-prefix prefix:
     #!/usr/bin/env bash
     set -euo pipefail

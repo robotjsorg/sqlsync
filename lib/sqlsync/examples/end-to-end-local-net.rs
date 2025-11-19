@@ -22,16 +22,16 @@ use sqlsync::WasmReducer;
 use serde::{Deserialize, Serialize};
 use sqlsync::{coordinator::CoordinatorDocument, MemoryJournal};
 
-fn serialize_into<W, T: ?Sized>(writer: W, value: &T) -> io::Result<()>
+fn serialize_into<W, T>(writer: W, value: &T) -> io::Result<()>
 where
     W: std::io::Write,
-    T: serde::Serialize,
+    T: serde::Serialize + ?Sized,
 {
     match bincode::serialize_into(writer, value) {
         Ok(_) => Ok(()),
         Err(err) => match err.as_ref() {
             ErrorKind::Io(err) => Err(err.kind().into()),
-            _ => Err(io::Error::new(io::ErrorKind::Other, err)),
+            _ => Err(io::Error::other(err)),
         },
     }
 }
@@ -45,7 +45,7 @@ where
         Ok(v) => Ok(v),
         Err(err) => match err.as_ref() {
             ErrorKind::Io(err) => Err(err.kind().into()),
-            _ => Err(io::Error::new(io::ErrorKind::Other, err)),
+            _ => Err(io::Error::other(err)),
         },
     }
 }
