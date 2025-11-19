@@ -1,8 +1,14 @@
 packages:
-  - "demo/cloudflare-backend"
-  - "demo/frontend"
-  - "lib/sqlsync-react"
-  - "lib/sqlsync-solid-js"
-  - "lib/sqlsync-worker"
-  - "examples/guestbook-react"
-  - "examples/guestbook-solid-js"
+  - demo/cloudflare-backend
+  - demo/frontend
+  - lib/sqlsync-react
+  - lib/sqlsync-solid-js
+  - lib/sqlsync-worker
+  - examples/guestbook-react
+  - examples/guestbook-solid-js
+
+onlyBuiltDependencies:
+  - '@biomejs/biome'
+  - esbuild
+  - sharp
+  - workerd

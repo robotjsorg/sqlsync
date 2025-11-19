@@ -119,6 +119,11 @@ async fn main(req: Request, env: Env, _ctx: Context) -> Result<Response> {
                 .dyn_into::<ArrayBuffer>()
                 .expect("expected ArrayBuffer");
 
+            let actual_data_len = data.byte_length() as u64;
+            if actual_data_len != data_len {
+                return Response::error("Bad Request", 400);
+            }
+
             let global = js_sys::global()
                 .dyn_into::<js_sys::Object>()
                 .expect("global not found");
@@ -139,7 +144,7 @@ async fn main(req: Request, env: Env, _ctx: Context) -> Result<Response> {
 
             console_log!(
                 "uploading reducer (size: {} MB) to {}",
-                data_len / 1024 / 1024,
+                (actual_data_len as f64) / 1024. / 1024.,
                 name
             );
 
