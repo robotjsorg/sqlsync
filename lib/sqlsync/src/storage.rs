@@ -346,7 +346,8 @@ impl<J: Journal> Storage<J> {
 }
 
 impl<J: ReplicationSource> ReplicationSource for Storage<J> {
-    type Reader<'a> = <J as ReplicationSource>::Reader<'a>
+    type Reader<'a>
+        = <J as ReplicationSource>::Reader<'a>
     where
         Self: 'a;
 

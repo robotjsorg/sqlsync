@@ -73,7 +73,8 @@ impl Journal for MemoryJournal {
 }
 
 impl Scannable for MemoryJournal {
-    type Reader<'a> = &'a [u8]
+    type Reader<'a>
+        = &'a [u8]
     where
         Self: 'a;
 
@@ -95,7 +96,8 @@ impl Scannable for MemoryJournal {
 }
 
 impl ReplicationSource for MemoryJournal {
-    type Reader<'a> = &'a [u8]
+    type Reader<'a>
+        = &'a [u8]
     where
         Self: 'a;
 

@@ -132,7 +132,8 @@ where
 
 /// LocalDocument knows how to send it's timeline journal elsewhere
 impl<J: ReplicationSource, S> ReplicationSource for LocalDocument<J, S> {
-    type Reader<'a> = <J as ReplicationSource>::Reader<'a>
+    type Reader<'a>
+        = <J as ReplicationSource>::Reader<'a>
     where
         Self: 'a;
 
