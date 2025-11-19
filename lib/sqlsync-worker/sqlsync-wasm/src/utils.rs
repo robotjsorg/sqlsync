@@ -112,7 +112,7 @@ pub async fn fetch_reducer(reducer_url: &str) -> Result<(WasmReducer, Vec<u8>), 
         )));
     }
 
-    let mut reducer_wasm_bytes = resp.binary().await?;
+    let reducer_wasm_bytes = resp.binary().await?;
 
     let global = js_sys::global()
         .dyn_into::<js_sys::Object>()
@@ -130,10 +130,9 @@ pub async fn fetch_reducer(reducer_url: &str) -> Result<(WasmReducer, Vec<u8>), 
         // sha256 sum the data
         // TODO: it would be much better to stream the data through the hash function
         // but afaik that's not doable with the crypto.subtle api
-        let digest = JsFuture::from(
-            subtle.digest_with_str_and_u8_array("SHA-256", &mut reducer_wasm_bytes)?,
-        )
-        .await?;
+        let digest =
+            JsFuture::from(subtle.digest_with_str_and_u8_array("SHA-256", &reducer_wasm_bytes)?)
+                .await?;
         Uint8Array::new(&digest).to_vec()
     };
 

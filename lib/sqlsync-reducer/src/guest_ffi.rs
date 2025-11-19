@@ -1,3 +1,5 @@
+#![allow(static_mut_refs)]
+
 use std::{collections::BTreeMap, mem::MaybeUninit, panic, sync::Once};
 
 use serde::{de::DeserializeOwned, Serialize};
@@ -138,7 +140,7 @@ pub fn install_panic_hook() {
     });
 }
 
-fn panic_hook(info: &panic::PanicInfo) {
+fn panic_hook(info: &panic::PanicHookInfo) {
     let record: LogRecord = info.into();
     let record_ptr = fbm().encode(&record).unwrap();
     unsafe { host_log(record_ptr) }

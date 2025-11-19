@@ -127,7 +127,8 @@ impl<J: Journal, R: Reducer> CoordinatorDocument<J, R> {
 
 /// CoordinatorDocument knows how to replicate it's storage journal
 impl<J: Journal + ReplicationSource, R> ReplicationSource for CoordinatorDocument<J, R> {
-    type Reader<'a> = <J as ReplicationSource>::Reader<'a>
+    type Reader<'a>
+        = <J as ReplicationSource>::Reader<'a>
     where
         Self: 'a;
 

@@ -55,7 +55,7 @@ export const pendingPromise = <T = undefined>(): [Promise<T>, (v: T) => void] =>
 
 export const sha256Digest = async (data: Uint8Array): Promise<Uint8Array> => {
   if (crypto?.subtle?.digest) {
-    const hash = await crypto.subtle.digest("SHA-256", data);
+    const hash = await crypto.subtle.digest("SHA-256", data as BufferSource);
     return new Uint8Array(hash);
   }
 
